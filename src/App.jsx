@@ -8,6 +8,7 @@ import Portfolio from './components/Portfolio';
 import YouTube from './components/YouTube';
 import Instagram from './components/Instagram';
 import Contact from './components/Contact';
+import Header from './components/Header';
 import './App.css';
 
 function App() {
@@ -15,17 +16,7 @@ function App() {
     <div className="app-container">
       <div className="background-watercolor"></div>
 
-      <nav className="navbar glossy-card">
-        <h1>My Portfolio</h1>
-        <div className="nav-links">
-          <a href="#hero">Home</a>
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#portfolio">Work</a>
-          <a href="#youtube">Media</a>
-          <a href="#contact">Contact</a>
-        </div>
-      </nav>
+      <Header />
 
       <main>
         <Hero />
