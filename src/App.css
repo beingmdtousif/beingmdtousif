@@ -100,7 +100,7 @@ main {
   padding: 0 2rem;
   display: flex;
   flex-direction: column;
-  gap: 6rem;
+  gap: 8rem;
   margin-top: 8rem;
   margin-bottom: 6rem;
 }
@@ -108,21 +108,24 @@ main {
 .section {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
+  align-items: center; /* Center content in section */
 }
 
 .title-card {
   display: inline-block;
   padding: 1rem 2rem;
-  align-self: flex-start;
+  align-self: center; /* Center the title cards */
   margin-bottom: 1rem;
 }
 
 .section-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: center; /* Center the section headers */
   align-items: center;
   padding: 1rem 2rem;
+  width: 100%;
+  gap: 2rem;
 }
 
 .inline-icon {
@@ -285,6 +288,7 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 2rem;
+  width: 100%;
 }
 
 .project-card {
@@ -325,6 +329,7 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 2rem;
+  width: 100%;
 }
 
 .video-card {
@@ -388,6 +393,7 @@ main {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 1.5rem;
+  width: 100%;
 }
 
 .insta-card {
@@ -495,6 +501,7 @@ main {
   display: flex;
   gap: 3rem;
   align-items: center;
+  width: 100%;
 }
 
 .about-image {
@@ -526,6 +533,8 @@ main {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
+  padding: 2rem;
 }
 
 .skill-category h3 {
@@ -560,6 +569,96 @@ main {
   justify-content: center;
 }
 
+/* Timeline (Experience) Section */
+.timeline-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+}
+
+.timeline-container::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--glass-border);
+}
+
+.timeline-item {
+  position: relative;
+  padding: 2rem;
+  margin-left: 50px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -37px;
+  top: 2rem;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  border: 4px solid #0f172a;
+}
+
+.timeline-content h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.25rem;
+}
+
+.company {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.period {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+/* Services Section */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  width: 100%;
+}
+
+.service-card {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+}
+
+.service-icon {
+  color: var(--primary-color);
+  background: rgba(139, 92, 246, 0.1);
+  padding: 1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Footer */
 .footer {
   width: calc(100% - 3rem);
@@ -573,6 +672,10 @@ main {
 @media (max-width: 768px) {
   .hero-content h2 {
     font-size: 2.5rem;
+  }
+
+  .about-content {
+    flex-direction: column;
   }
 
   .navbar {
