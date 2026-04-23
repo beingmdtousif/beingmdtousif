@@ -1,50 +1,49 @@
-import React, { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, MessageCircle } from 'lucide-react';
 import './Header.css';
 
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location]);
 
   return (
-    <header className="navbar glossy-card">
-      <div className="navbar-container">
-        <h1>My Portfolio</h1>
+    <header className={`header ${isScrolled ? 'scrolled glass-card' : ''}`}>
+      <div className="container header-container">
+        <Link to="/" className="logo glow-text">
+          NEXUS<span className="accent">.</span>
+        </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="nav-links desktop-nav">
-          <a href="#hero">Home</a>
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#portfolio">Work</a>
-          <a href="#youtube">Media</a>
-          <a href="#contact">Contact</a>
+        <nav className={`nav-menu ${isMobileMenuOpen ? 'open glass-card' : ''}`}>
+          <Link to="/" className={`nav-link ${location.pathname === '/' ? 'active' : ''}`}>Home</Link>
+          <Link to="/about" className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`}>About</Link>
+          <Link to="/contact" className={`nav-link ${location.pathname === '/contact' ? 'active' : ''}`}>Contact</Link>
+          <Link to="/social" className={`nav-link ${location.pathname === '/social' ? 'active' : ''}`}>Social</Link>
+
+          <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer" className="btn btn-primary nav-cta">
+            <MessageCircle size={18} />
+            <span>WhatsApp</span>
+          </a>
         </nav>
 
-        {/* Mobile Menu Button */}
-        <button className="mobile-menu-btn" onClick={toggleMenu} aria-label="Toggle menu">
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        <button className="mobile-toggle" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
-
-      {/* Mobile Navigation Dropdown */}
-      {isMenuOpen && (
-        <nav className="mobile-nav glossy-card">
-          <a href="#hero" onClick={closeMenu}>Home</a>
-          <a href="#about" onClick={closeMenu}>About</a>
-          <a href="#experience" onClick={closeMenu}>Experience</a>
-          <a href="#portfolio" onClick={closeMenu}>Work</a>
-          <a href="#youtube" onClick={closeMenu}>Media</a>
-          <a href="#contact" onClick={closeMenu}>Contact</a>
-        </nav>
-      )}
     </header>
   );
 };
