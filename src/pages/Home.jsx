@@ -1,25 +1,103 @@
-import React from 'react';
-import { ArrowRight, Zap, Target, BarChart, Users } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, Zap, Target, BarChart, Users, ChevronLeft, ChevronRight } from 'lucide-react';
 import './Home.css';
 
 const Home = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      title: "Future-Proof",
+      subtitle: "Your Digital Presence",
+      desc: "We build high-performance, glossy, and conversion-focused digital experiences that elevate your brand to the next level.",
+      ctaPrimary: "Get Started",
+      ctaPrimaryLink: "/contact",
+      ctaSecondary: "Our Work",
+      ctaSecondaryLink: "/about",
+      bgGradient: "radial-gradient(circle at center, rgba(0, 229, 255, 0.15) 0%, rgba(11, 29, 58, 1) 70%)"
+    },
+    {
+      title: "Conversion-Focused",
+      subtitle: "Premium UI/UX Design",
+      desc: "Turn visitors into loyal customers with intuitive, data-driven interfaces crafted for maximum engagement.",
+      ctaPrimary: "View Services",
+      ctaPrimaryLink: "/about",
+      ctaSecondary: "Contact Now",
+      ctaSecondaryLink: "/contact",
+      bgGradient: "radial-gradient(circle at center, rgba(139, 92, 246, 0.15) 0%, rgba(11, 29, 58, 1) 70%)"
+    },
+    {
+      title: "Lightning Fast",
+      subtitle: "Modern Web Solutions",
+      desc: "Speed is a feature. We engineer scalable architectures that load instantly and perform flawlessly across all devices.",
+      ctaPrimary: "Start Project",
+      ctaPrimaryLink: "/contact",
+      ctaSecondary: "Learn More",
+      ctaSecondaryLink: "/about",
+      bgGradient: "radial-gradient(circle at center, rgba(16, 185, 129, 0.15) 0%, rgba(11, 29, 58, 1) 70%)"
+    }
+  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <div className="home-page">
-      {/* Hero Section */}
+      {/* Hero Section Carousel */}
       <section className="hero-section">
-        <div className="hero-content container">
-          <h1 className="hero-title">
-            <span className="glow-text">Future-Proof</span> Your<br />Digital Presence
-          </h1>
-          <p className="hero-desc">
-            We build high-performance, glossy, and conversion-focused digital experiences that elevate your brand to the next level.
-          </p>
-          <div className="hero-cta">
-            <a href="/contact" className="btn btn-primary">Get Started <ArrowRight size={18} style={{verticalAlign: 'middle', marginLeft: '8px'}} /></a>
-            <a href="/about" className="btn btn-outline">Our Work</a>
+        {slides.map((slide, index) => (
+          <div
+            key={index}
+            className={`hero-slide ${index === currentSlide ? 'active' : ''}`}
+            style={{ background: slide.bgGradient }}
+          >
+            <div className="hero-content container">
+              <h1 className="hero-title">
+                <span className="glow-text">{slide.title}</span><br />{slide.subtitle}
+              </h1>
+              <p className="hero-desc">
+                {slide.desc}
+              </p>
+              <div className="hero-cta">
+                <a href={slide.ctaPrimaryLink} className="btn btn-primary">
+                  {slide.ctaPrimary} <ArrowRight size={18} style={{verticalAlign: 'middle', marginLeft: '8px'}} />
+                </a>
+                <a href={slide.ctaSecondaryLink} className="btn btn-outline">{slide.ctaSecondary}</a>
+              </div>
+            </div>
           </div>
+        ))}
+
+        {/* Slider Controls */}
+        <button className="slider-control prev" onClick={prevSlide} aria-label="Previous slide">
+          <ChevronLeft size={32} />
+        </button>
+        <button className="slider-control next" onClick={nextSlide} aria-label="Next slide">
+          <ChevronRight size={32} />
+        </button>
+
+        <div className="slider-indicators">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              className={`indicator ${index === currentSlide ? 'active' : ''}`}
+              onClick={() => setCurrentSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            ></button>
+          ))}
         </div>
-        <div className="hero-gradient-overlay"></div>
       </section>
 
       {/* About Preview */}

@@ -123,4 +123,11 @@
   .grid-2x2 {
     grid-template-columns: 1fr;
   }
+  .split-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .pt-20 {
+    padding-top: 80px;
+  }
 }

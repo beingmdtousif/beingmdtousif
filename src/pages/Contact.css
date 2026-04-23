@@ -141,5 +141,10 @@
   .contact-info {
     border-right: none;
     border-bottom: 1px solid var(--glass-border);
+    padding: 30px 20px;
+  }
+
+  .contact-form-wrapper {
+    padding: 30px 20px;
   }
 }

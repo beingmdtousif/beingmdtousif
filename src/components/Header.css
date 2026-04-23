@@ -95,9 +95,17 @@
     gap: 20px;
     transition: right 0.3s ease;
     border-radius: 0 0 0 16px;
+    background: var(--primary-navy);
+    border-left: 1px solid var(--glass-border);
+    border-bottom: 1px solid var(--glass-border);
   }
 
   .nav-menu.open {
     right: 0;
+  }
+
+  .nav-cta {
+    width: 100%;
+    justify-content: center;
   }
 }
