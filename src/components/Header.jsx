@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import './Header.css';
 
@@ -16,16 +17,15 @@ const Header = () => {
   return (
     <header className="navbar glossy-card">
       <div className="navbar-container">
-        <h1>My Portfolio</h1>
+        <h1><Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>WebServices Co.</Link></h1>
 
         {/* Desktop Navigation */}
         <nav className="nav-links desktop-nav">
-          <a href="#hero">Home</a>
-          <a href="#about">About</a>
-          <a href="#experience">Experience</a>
-          <a href="#portfolio">Work</a>
-          <a href="#youtube">Media</a>
-          <a href="#contact">Contact</a>
+          <Link to="/">Home</Link>
+          <Link to="/about">About Us</Link>
+          <Link to="/services">Services</Link>
+          <Link to="/blog">Blog</Link>
+          <Link to="/contact">Contact</Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -37,12 +37,11 @@ const Header = () => {
       {/* Mobile Navigation Dropdown */}
       {isMenuOpen && (
         <nav className="mobile-nav glossy-card">
-          <a href="#hero" onClick={closeMenu}>Home</a>
-          <a href="#about" onClick={closeMenu}>About</a>
-          <a href="#experience" onClick={closeMenu}>Experience</a>
-          <a href="#portfolio" onClick={closeMenu}>Work</a>
-          <a href="#youtube" onClick={closeMenu}>Media</a>
-          <a href="#contact" onClick={closeMenu}>Contact</a>
+          <Link to="/" onClick={closeMenu}>Home</Link>
+          <Link to="/about" onClick={closeMenu}>About Us</Link>
+          <Link to="/services" onClick={closeMenu}>Services</Link>
+          <Link to="/blog" onClick={closeMenu}>Blog</Link>
+          <Link to="/contact" onClick={closeMenu}>Contact</Link>
         </nav>
       )}
     </header>

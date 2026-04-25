@@ -1,39 +1,36 @@
 import React from 'react';
-import Hero from './components/Hero';
-import About from './components/About';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Services from './components/Services';
-import Portfolio from './components/Portfolio';
-import YouTube from './components/YouTube';
-import Instagram from './components/Instagram';
-import Contact from './components/Contact';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
+import Home from './pages/Home';
+import About from './pages/About';
+import Services from './pages/Services';
+import Contact from './pages/Contact';
+import Blog from './pages/Blog';
 import './App.css';
 
 function App() {
   return (
-    <div className="app-container">
-      <div className="background-watercolor"></div>
+    <Router>
+      <div className="app-container">
+        <div className="background-watercolor"></div>
 
-      <Header />
+        <Header />
 
-      <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Services />
-        <Portfolio />
-        <YouTube />
-        <Instagram />
-        <Contact />
-      </main>
+        <main>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
 
-      <footer className="footer glossy-card">
-        <p>&copy; {new Date().getFullYear()} My Portfolio. All rights reserved.</p>
-      </footer>
-    </div>
+        <footer className="footer glossy-card">
+          <p>&copy; {new Date().getFullYear()} Our Company. All rights reserved.</p>
+        </footer>
+      </div>
+    </Router>
   );
 }
 
