@@ -3,7 +3,7 @@ import { User } from 'lucide-react';
 
 const About = () => {
   return (
-    <section id="about" className="section">
+    <div className="about-container">
       <div className="section-header glossy-card title-card">
         <h2 className="section-title"><User className="inline-icon text-pink" /> About Me</h2>
       </div>
@@ -24,7 +24,7 @@ const About = () => {
           </p>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

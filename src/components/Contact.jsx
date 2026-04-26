@@ -3,7 +3,7 @@ import { Send } from 'lucide-react';
 
 const Contact = () => {
   return (
-    <section id="contact" className="section">
+    <div className="contact-wrapper">
       <h2 className="section-title glossy-card title-card">Get In Touch</h2>
 
       <div className="contact-container glossy-card">
@@ -30,7 +30,7 @@ const Contact = () => {
           </button>
         </form>
       </div>
-    </section>
+    </div>
   );
 };
 

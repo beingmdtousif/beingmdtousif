@@ -1,14 +1,8 @@
 import React from 'react';
-import Hero from './components/Hero';
 import About from './components/About';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Services from './components/Services';
-import Portfolio from './components/Portfolio';
-import YouTube from './components/YouTube';
-import Instagram from './components/Instagram';
 import Contact from './components/Contact';
-import Header from './components/Header';
+import Portfolio from './components/Portfolio';
+import Socials from './components/Socials';
 import './App.css';
 
 function App() {
@@ -16,18 +10,24 @@ function App() {
     <div className="app-container">
       <div className="background-watercolor"></div>
 
-      <Header />
-
       <main>
-        <Hero />
-        <About />
-        <Skills />
-        <Experience />
-        <Services />
-        <Portfolio />
-        <YouTube />
-        <Instagram />
-        <Contact />
+        {/* Section 1: Image and About me */}
+        <section className="section about-section-wrapper">
+          <About />
+        </section>
+
+        {/* Section 2: Three grids (Contact, Portfolio, Social Handles) */}
+        <section className="section three-grids-section">
+          <div className="grid-item">
+            <Contact />
+          </div>
+          <div className="grid-item">
+            <Portfolio />
+          </div>
+          <div className="grid-item">
+            <Socials />
+          </div>
+        </section>
       </main>
 
       <footer className="footer glossy-card">
