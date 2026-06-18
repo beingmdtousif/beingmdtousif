@@ -1,1 +1,146 @@
-@import './App.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary-navy: #0B1D3A;
+  --primary-navy-transparent: rgba(11, 29, 58, 0.7);
+  --accent-cyan: #00E5FF;
+  --accent-cyan-glow: rgba(0, 229, 255, 0.4);
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --text-white: #ffffff;
+  --text-gray: #b0bec5;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--primary-navy);
+  color: var(--text-white);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+}
+
+.glow-text {
+  text-shadow: 0 0 10px var(--accent-cyan-glow);
+}
+
+.glow-box {
+  box-shadow: 0 0 20px var(--accent-cyan-glow);
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btn-primary {
+  background: var(--accent-cyan);
+  color: var(--primary-navy);
+  box-shadow: 0 4px 15px var(--accent-cyan-glow);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--accent-cyan-glow);
+  background: #33eaff;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--accent-cyan);
+  color: var(--accent-cyan);
+}
+
+.btn-outline:hover {
+  background: var(--accent-cyan);
+  color: var(--primary-navy);
+  box-shadow: 0 0 15px var(--accent-cyan-glow);
+}
+
+/* Base Layout */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding-top: 80px; /* Account for sticky header */
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section-padding {
+  padding: 80px 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-4 {
+  margin-bottom: 1rem;
+}
+
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 1.75rem; }
+
+@media (max-width: 768px) {
+  h1 { font-size: 2.2rem; }
+  h2 { font-size: 1.8rem; }
+  h3 { font-size: 1.4rem; }
+
+  .section-padding {
+    padding: 50px 0;
+  }
+
+  .btn {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 14px 24px;
+  }
+}
