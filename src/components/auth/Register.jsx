@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ArrowLeft } from 'lucide-react';
 
-export default function Register({ onRegister, onNavigateBack, onNavigateLogin }) {
+export default function Register({ onNavigateBack, onNavigateLogin }) {
   const [formData, setFormData] = useState(() => {
     const params = new URLSearchParams(window.location.search);
     const ref = params.get('ref') || '';
@@ -18,14 +18,34 @@ export default function Register({ onRegister, onNavigateBack, onNavigateLogin }
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords don't match!");
       return;
     }
-    // Dummy register action for prototype
-    onRegister({ name: formData.name, mobile: formData.mobile });
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          mobile: formData.mobile,
+          password: formData.password,
+          referralCode: formData.referralCode
+        })
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert('Registration successful! Please login.');
+        onNavigateLogin();
+      } else {
+        alert(data.message || 'Registration failed');
+      }
+    } catch (error) {
+      console.error('Registration error:', error);
+      alert('Network error. Is the backend running?');
+    }
   };
 
   return (

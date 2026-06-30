@@ -46,7 +46,6 @@ function App() {
   if (authView === 'register') {
     return (
       <Register
-        onRegister={handleLogin}
         onNavigateBack={() => setAuthView(null)}
         onNavigateLogin={() => setAuthView('login')}
       />

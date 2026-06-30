@@ -1,19 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home({ user }) {
   const [betAmount, setBetAmount] = useState('');
   const [selectedOption, setSelectedOption] = useState(null);
+  const [history, setHistory] = useState([]);
 
   const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const history = [
-    { id: 1, result: 7, bigSmall: 'Big', time: '08:30 PM' },
-    { id: 2, result: 2, bigSmall: 'Small', time: '04:00 PM' },
-    { id: 3, result: 9, bigSmall: 'Big', time: '08:30 PM' },
-    { id: 4, result: 1, bigSmall: 'Small', time: '04:00 PM' },
-    { id: 5, result: 5, bigSmall: 'Big', time: '08:30 PM' },
-  ];
 
-  const handleBet = () => {
+  useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const res = await fetch('http://localhost:5000/api/lottery/results');
+        const data = await res.json();
+        if (res.ok) setHistory(data);
+      } catch (err) {
+        console.error('Error fetching history:', err);
+      }
+    };
+    fetchHistory();
+  }, []);
+
+  const handleBet = async () => {
     if (!user) {
       alert("Please login to place a bet");
       return;
@@ -26,9 +33,30 @@ export default function Home({ user }) {
       alert("Please enter a valid bet amount");
       return;
     }
-    alert(`Bet of ₹${betAmount} placed on ${selectedOption}!`);
-    setBetAmount('');
-    setSelectedOption(null);
+    try {
+      const res = await fetch('http://localhost:5000/api/lottery/bet', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          userId: user.id,
+          betType: selectedOption.includes('Number') ? 'number' : 'size',
+          betValue: selectedOption.replace('Number ', ''),
+          amount: parseFloat(betAmount)
+        })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert(data.message);
+        setBetAmount('');
+        setSelectedOption(null);
+        // Note: In a real app we would update the user context balance here
+      } else {
+        alert(data.message || 'Bet placement failed');
+      }
+    } catch (err) {
+      console.error('Betting error:', err);
+      alert('Network error placing bet');
+    }
   };
 
   return (
@@ -121,10 +149,12 @@ export default function Home({ user }) {
           {history.map((item, index) => (
             <div key={item.id} className="flex-between" style={{ padding: '10px', background: index === 0 ? 'rgba(0, 229, 255, 0.1)' : 'var(--glass-bg)', borderRadius: '8px', border: index === 0 ? '1px solid var(--primary-accent)' : '1px solid var(--glass-border)' }}>
               <div>
-                <span style={{ fontWeight: 'bold', fontSize: '1.2rem', marginRight: '15px' }}>{item.result}</span>
-                <span className={item.bigSmall === 'Big' ? 'text-success' : 'text-danger'}>{item.bigSmall}</span>
+                <span style={{ fontWeight: 'bold', fontSize: '1.2rem', marginRight: '15px' }}>{item.winning_number}</span>
+                <span className={item.winning_size === 'Big' ? 'text-success' : 'text-danger'}>{item.winning_size}</span>
               </div>
-              <span className="text-muted" style={{ fontSize: '0.9rem' }}>{item.time}</span>
+              <span className="text-muted" style={{ fontSize: '0.9rem' }}>
+                {new Date(item.draw_date).toLocaleDateString()}
+              </span>
             </div>
           ))}
         </div>
